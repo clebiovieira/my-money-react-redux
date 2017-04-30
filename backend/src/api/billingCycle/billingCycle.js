@@ -1,4 +1,5 @@
 //ODM - Mapear o objeto do banco de dadosconst restful = require('node-restful')
+const restful = require('node-restful')
 const mongoose = restful.mongoose
 
 const creditSchema = new mongoose.Schema({
