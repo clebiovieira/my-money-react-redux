@@ -5,7 +5,8 @@ BillingCycle.methods(['get', 'post', 'put', 'delete'])
 BillingCycle.updateOptions({new: true, runValidators: true}) //Roda as validações quando em PUT e tambem devolve um objeto novo
 //BillingCycle.after('post', errorHandler).after('put', errorHandler)
 
-/*BillingCycle.route('count', (req, res, next) => {
+//Criando uma rota para contar os elementos da coleção
+BillingCycle.route('count', (req, res, next) => {
     BillingCycle.count((error, value) => {
         if(error) {
             res.status(500).json({errors: [error]})
@@ -15,10 +16,14 @@ BillingCycle.updateOptions({new: true, runValidators: true}) //Roda as validaç�
     })
 })
 
+
 BillingCycle.route('summary', (req, res, next) => {
+    //Estudar Pipeline de Agregação
     BillingCycle.aggregate({
+        //Comando do MongoDB
         $project: {credit: {$sum: "$credits.value"}, debt: {$sum: "$debts.value"}}
     }, {
+        //Agrupando no mongodb
         $group: {_id: null, credit: {$sum: "$credit"}, debt: {$sum: "$debt"}}
     }, {
         $project: {_id: 0, credit: 1, debt: 1}
@@ -30,5 +35,5 @@ BillingCycle.route('summary', (req, res, next) => {
         }
     })
 })
-*/
+
 module.exports = BillingCycle
