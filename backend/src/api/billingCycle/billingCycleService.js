@@ -1,9 +1,12 @@
 const BillingCycle = require('./billingCycle')
-//const errorHandler = require('../common/errorHandler')
+
+const errorHandler = require('../common/errorHandler')
 
 BillingCycle.methods(['get', 'post', 'put', 'delete'])
 BillingCycle.updateOptions({new: true, runValidators: true}) //Roda as validações quando em PUT e tambem devolve um objeto novo
-//BillingCycle.after('post', errorHandler).after('put', errorHandler)
+
+//Adicionando o Midleware que foi feito para tratar as msgs de erro
+BillingCycle.after('post', errorHandler).after('put', errorHandler)
 
 //Criando uma rota para contar os elementos da coleção
 BillingCycle.route('count', (req, res, next) => {
