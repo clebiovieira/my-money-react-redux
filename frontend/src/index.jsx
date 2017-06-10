@@ -26,5 +26,7 @@ ReactDOM.render(
 const store = createStore(reducers)
 
 ReactDOM.render(
-    <App/>
+    <Provider store={store}>
+        <App/>
+    </Provider>
 , document.getElementById('app'))

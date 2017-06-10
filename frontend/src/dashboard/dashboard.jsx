@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import {connect} from 'react-redux'
 
 import ContentHeader from '../common/template/contentHeader'
 import Content from '../common/template/content'
@@ -7,17 +8,18 @@ import Row from  '../common/layout/row'
 
 class Dashboard extends Component{
     render(){
+        const {credit, debt} = this.props.summary
         return (
             <div>
                 <ContentHeader title='Dashboard' small='Versão 1.0'/>
                 <Content>
                     <Row>
                         <ValueBox cols='12 4' color='green' icon='bank'
-                            value='R$ 10' text='Total de Créditos'/>
+                            value={`R$ ${credit}`} text='Total de Créditos'/>
                         <ValueBox cols='12 4' color='red' icon='credit-card'
-                            value='R$ 8' text='Total de Débitos'/>
+                            value={`R$ ${debt}`} text='Total de Débitos'/>
                         <ValueBox cols='12 4' color='blue' icon='money'
-                            value='R$ 0' text='Valor Consolidado'/>                    
+                            value={`R$ ${credit - debt}`} text='Valor Consolidado'/>
                     </Row>
                 </Content>
             </div>
@@ -25,4 +27,11 @@ class Dashboard extends Component{
     }
 }
 
-export default Dashboard
+//Esse objeto ensina como o React-Redux vai tirar o dado da Store e onde ele
+//vai colocar do estado nas propriedas do componente React.
+//Ex... No arquivo Reducer o estado foi configurado como
+//dashboard: () => ({summary: {credit:100, devit: 50}})
+const mapStateToProps = state => ({summary: state.dashboard.summary})
+
+//Passo o Mapeador Estado-Propriedade e o componente que será decorado com o estado
+export default connect(mapStateToProps)(Dashboard)
