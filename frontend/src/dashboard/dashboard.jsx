@@ -1,12 +1,23 @@
 import React,{Component} from 'react'
 import {connect} from 'react-redux'
 
+// Linkando o componente com a alteração de estado disparado quando as ActionsCreatores
+// forem disparadas para evoluir o estado
+import {bindActionCreators} from 'redux'
+import {getSummary} from './dashboardActions'
+//
+
 import ContentHeader from '../common/template/contentHeader'
 import Content from '../common/template/content'
 import ValueBox from '../common/widget/valueBox'
 import Row from  '../common/layout/row'
 
 class Dashboard extends Component{
+    //Função chamada sempre que o componente será renderizado
+    componentWillMount(){
+        this.props.getSummary()
+    }
+    
     render(){
         const {credit, debt} = this.props.summary
         return (
@@ -33,5 +44,13 @@ class Dashboard extends Component{
 //dashboard: () => ({summary: {credit:100, devit: 50}})
 const mapStateToProps = state => ({summary: state.dashboard.summary})
 
+//>>A cola final entre o componente e o estado<<
+//bindActionCreators vai ligar o ActionCreator ao getSummary.
+//Quando getSummary for chamado o dispatch enviará para todos os Reducers
+//da app. um aviso. Os reducers interessados saberão que houve uma chamada e tratarão como
+//for do seu interesse para eveluir seu estado 
+const mapDispatchToProps = dispatch => bindActionCreators({getSummary},dispatch)
+
+
 //Passo o Mapeador Estado-Propriedade e o componente que será decorado com o estado
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)

@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {createStore } from 'redux'
-//import { applyMiddleware, createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-//import promise from 'redux-promise'
+import promise from 'redux-promise'
 //import multi from 'redux-multi'
 //import thunk from 'redux-thunk'
 
@@ -23,7 +22,7 @@ ReactDOM.render(
 */
 
 //Definir a Store(estado unico da app)passando o rootReducers que combina todos os reducers
-const store = createStore(reducers)
+const store = applyMiddleware(promise)(createStore)(reducers)
 
 ReactDOM.render(
     <Provider store={store}>
