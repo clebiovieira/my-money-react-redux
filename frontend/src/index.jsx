@@ -10,7 +10,8 @@ import promise from 'redux-promise'
 import App from './main/app'
 import reducers from './main/reducers'
 
-//const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ 
+    && window.__REDUX_DEVTOOLS_EXTENSION__()
 //const store = applyMiddleware(multi, thunk, promise)(createStore)(reducers, devTools)
 
 /*
@@ -22,7 +23,7 @@ ReactDOM.render(
 */
 
 //Definir a Store(estado unico da app)passando o rootReducers que combina todos os reducers
-const store = applyMiddleware(promise)(createStore)(reducers)
+const store = applyMiddleware(promise)(createStore)(reducers,devTools)
 
 ReactDOM.render(
     <Provider store={store}>
